@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# This script should be used as
+#
+# ./run_vampire <other_options> <problem>
+#
+# You can override the set options in other_options
+#
+# Here we turn off
+# - some preprocessing steps that reduce the input (updr,fde,nm)
+# - AVATAR (av) that uses a SAT solver to split the search space
+# - Some simplifications (fsr) that help proof search but can complicate proofs
+#
+# And we fix some proof search parameters to ones that we saw in lectures
+# - The standard selection function for ordered selection (-s 1)
+# - The standard given clause algorithm (-sa discount)
+# - The given transformation to remove equality (-ep RSTC)
+#
+# Author: Francisco & Giles
+
+"$(dirname "$(readlink "$0")")"/vampire -updr off -fde none -nm 0 -av off -fsr off -s 1 -sa discount -ep RSTC "$@"
